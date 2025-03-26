@@ -25,7 +25,7 @@ def getinfo():
         return render_template('output.html', username = user, password = passtxt, status = status)
     
 def Createfile(namefile):
-    global status
+    global status,user,passtxt
     fileDir = os.path.dirname(os.path.realpath("__file__"))
     filexist = bool(path.exists(namefile))
     
@@ -57,13 +57,17 @@ def existing(filename):
     passcheck = adminvalue[1].strip()
 
     if(password == passcheck):
+        user = adminvalue[0].strip()
+        passtxt = adminvalue[1].strip()
         status = "Username and Password Already exist!"
         adminfile.close()
     else:
         changepass(filename)
         
 def changepass(namefile):
-    global user,passtxt,status
+    global user
+    global passtxt
+    global status
     
     file = open(namefile, "w")
     file.write(username +"\n"+ password)
